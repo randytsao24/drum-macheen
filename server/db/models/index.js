@@ -1,4 +1,8 @@
-const User = require('./user')
+// server/db/models/index.js
+// Collection point for our models!
+
+const User = require('./user');
+const Pad = require('./pad');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -14,5 +18,6 @@ const User = require('./user')
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User
-}
+  User,
+  Pad
+};
