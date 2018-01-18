@@ -33,7 +33,8 @@ export function getPadList() {
 export default function reducer(state = [], action) {
   switch (action.type) {
     case GET_PADS:
-      return action.pads;
+      // Sort just makes sure that the pad IDs are in order in the store
+      return action.pads.sort((padA, padB) => padA.id - padB.id);
     default:
       return state;
   }

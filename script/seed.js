@@ -1,7 +1,7 @@
 // seed.js - For seeding database with some good stuff
 
 const db = require('../server/db');
-const { User, Pad } = require('../server/db/models');
+const { User, Pad, Configuration } = require('../server/db/models');
 
 async function seed () {
   await db.sync({force: true})
@@ -17,16 +17,21 @@ async function seed () {
   const pads = await Promise.all([
     Pad.create({color: 'blue'}), Pad.create({color: 'blue'}),
     Pad.create({color: 'blue'}), Pad.create({color: 'blue'}),
-    Pad.create({color: 'blue'}), Pad.create({color: 'blue'}),
-    Pad.create({color: 'blue'}), Pad.create({color: 'blue'}),
-    Pad.create({color: 'blue'}), Pad.create({color: 'blue'}),
-    Pad.create({color: 'blue'}), Pad.create({color: 'blue'}),
-    Pad.create({color: 'blue'}), Pad.create({color: 'blue'}),
-    Pad.create({color: 'blue'}), Pad.create({color: 'blue'})
+    Pad.create({color: 'red'}), Pad.create({color: 'red'}),
+    Pad.create({color: 'red'}), Pad.create({color: 'red'}),
+    Pad.create({color: 'violet'}), Pad.create({color: 'violet'}),
+    Pad.create({color: 'violet'}), Pad.create({color: 'violet'}),
+    Pad.create({color: 'teal'}), Pad.create({color: 'teal'}),
+    Pad.create({color: 'teal'}), Pad.create({color: 'teal'})
+  ]);
+
+  const configs = await Promise.all([
+    Configuration.create({padAmount: 16, columnAmount: 4})
   ]);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${pads.length} pads`);
+  console.log(`seeded ${configs.length} configurations`);
   console.log(`seeded successfully`);
 }
 

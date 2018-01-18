@@ -18,6 +18,8 @@ export const intToAlpha = {
 export function createPadRow(padAmount, start, color) {
   let row = [];
 
+  //row.push(<Grid.Row columns={padAmount}>);
+
   for (let i = start; i <= padAmount; i++) {
     row.push(
       <Grid.Column key={i}>
@@ -28,6 +30,8 @@ export function createPadRow(padAmount, start, color) {
       </Grid.Column>
     );
   }
+
+  //row.push(</Grid.Row>);
 
   return row;
 }
