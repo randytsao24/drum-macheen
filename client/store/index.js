@@ -8,10 +8,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import user from './user';
 import pads from './pads';
+import configs from './configs';
 
 const reducer = combineReducers({
   user,
-  pads
+  pads,
+  configs
 });
 
 const middleware = composeWithDevTools(applyMiddleware(
@@ -24,3 +26,4 @@ const store = createStore(reducer, middleware);
 export default store;
 export * from './user';
 export * from './pads';
+export * from './configs';

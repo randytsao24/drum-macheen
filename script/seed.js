@@ -1,7 +1,9 @@
 // seed.js - For seeding database with some good stuff
 
 const db = require('../server/db');
-const { User, Pad, Configuration } = require('../server/db/models');
+const { User, Pad, Configuration, Sample } = require('../server/db/models');
+const fs = require('fs');
+const readdir = require('fs-readdir-promise');
 
 async function seed () {
   await db.sync({force: true})
@@ -29,9 +31,24 @@ async function seed () {
     Configuration.create({padAmount: 16, columnAmount: 4})
   ]);
 
+
+  const samples = await readdir('./Public/samples')
+    .then(files => {
+      return Promise.all(
+        files.map(file => 
+          Sample.create({
+            name: file,
+            category: file.split('-')[0]
+          })
+        )
+      )
+    })
+    .catch(err => console.error(err));
+
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${pads.length} pads`);
   console.log(`seeded ${configs.length} configurations`);
+  console.log(`seeded ${samples.length} samples`);
   console.log(`seeded successfully`);
 }
 

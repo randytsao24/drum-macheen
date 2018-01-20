@@ -4,12 +4,14 @@
 const User = require('./user');
 const Pad = require('./pad');
 const Configuration = require('./config');
+const Sample = require('./sample');
 
 /**
  * ASSOCIATIONS
  */
 
 User.hasMany(Configuration);
+Pad.belongsTo(Sample);
 
 /**
  * We'll export all of our models here...
@@ -17,5 +19,6 @@ User.hasMany(Configuration);
 module.exports = {
   User,
   Pad,
-  Configuration
+  Configuration,
+  Sample
 };

@@ -7,6 +7,7 @@ module.exports = router;
 router.use('/configs', require('./configs'));
 router.use('/users', require('./users'));
 router.use('/pads', require('./pads'));
+router.use('./samples', require('./samples'));
 
 // Error handler
 router.use((req, res, next) => {

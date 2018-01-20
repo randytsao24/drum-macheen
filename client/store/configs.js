@@ -23,7 +23,7 @@ export function getConfigurations() {
     return axios.get('/api/configs/')
       .then(res => res.data)
       .then(configs => {
-        const action = getConfigsAction(pads);
+        const action = getConfigsAction(configs);
         dispatch(action);
       })
       .catch(console.error);

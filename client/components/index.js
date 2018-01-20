@@ -4,6 +4,6 @@
  * having to figure out which file they belong to!
  */
 export {default as Main} from './main';
+export {default as PadGrid} from './pad-grid';
 export {default as UserHome} from './user-home';
-export {default as TestComponent} from './test-component';
 export {Login, Signup} from './auth-form';

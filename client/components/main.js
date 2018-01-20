@@ -7,7 +7,7 @@ import {withRouter, Link} from 'react-router-dom';
 import {logout} from '../store';
 
 import { Button, Menu, Grid } from 'semantic-ui-react';
-import { createPadRow } from '../utils';
+import { PadGrid } from '../components';
 
 /**
  * COMPONENT
@@ -15,19 +15,29 @@ import { createPadRow } from '../utils';
  *  and our drum pads.
  */
 class Main extends Component {
-  state = { activeItem: 'home' };
+  constructor(props) {
+    super(props);
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    this.state ={
+      activeItem: 'pads'
+    };
+
+    this.handleItemClick = this.handleItemClick.bind(this);
+  }
+
+  handleItemClick(e, { name }) {
+    this.setState({activeItem: name});
+  }
 
   render() {
+    const {children, handleClick, isLoggedIn} = this.props;
     const { activeItem } = this.state;
-    let padRow = createPadRow(4, 1, 'blue');
 
     return (
       <div className="main-div">
         <Menu tabular>
           <Menu.Item header>Randy's Drum Padzzz</Menu.Item>
-          <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
+          <Menu.Item name='pads' active={activeItem === 'pads'} onClick={this.handleItemClick} />
           <Menu.Item name='configurations' active={activeItem === 'configurations'} onClick={this.handleItemClick} />
 
           <Menu.Menu position='right'>
@@ -39,12 +49,7 @@ class Main extends Component {
             </Menu.Item>
           </Menu.Menu>
         </Menu>
-
-        <Grid>
-          <Grid.Row columns={4}>
-            {padRow}
-          </Grid.Row>
-        </Grid>
+        {children}
       </div>
     )
   }

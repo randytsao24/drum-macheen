@@ -1,10 +1,12 @@
+// client/routes.js
+
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome} from './components'
-import { me, getPadList } from './store'
+import {Main, Login, Signup, UserHome, PadGrid} from './components'
+import { me, getPadList, getConfigurations } from './store';
 
 /**
  * COMPONENT
@@ -22,17 +24,15 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
             {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={UserHome} />
+                  <Route path="/home" component={PadGrid} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route component={PadGrid} />
           </Switch>
         </Main>
       </Router>
@@ -56,6 +56,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData () {
       dispatch(me());
       dispatch(getPadList());
+      dispatch(getConfigurations());
     }
   }
 }

@@ -6,7 +6,7 @@
 import React from 'react';
 import { Button, Grid } from 'semantic-ui-react';
 
-// This contains a mapping of integers to their alphabetical representations.
+// intToAlpha contains a mapping of integers to their alphabetical representations.
 export const intToAlpha = {
   1: 'ONE', 2: 'TWO', 3: 'THREE', 4: 'FOUR',
   5: 'FIVE', 6: 'SIX', 7: 'SEVEN', 8: 'EIGHT',
@@ -14,24 +14,34 @@ export const intToAlpha = {
   13: 'THIRTEEN', 14: 'FOURTEEN', 15: 'FIFTEEN', 16: 'SIXTEEN'
 };
 
-// Creates a single row of pads
-export function createPadRow(padAmount, start, color) {
+// Create a row structure for pad buttons
+export function createRowStructure(columnAmount, rowAmount) {
+  let rowEnclosingComponents = [];
+
+  for (let i = 1; i <= rowAmount; i++) {
+    rowEnclosingComponents.push(<Grid.Row key={i} columns={rowAmount}>);
+    rowEnclosingComponents.push(</Grid.Row>);
+  }
+
+  return rowEnclosingComponents;
+}
+
+// Creates a single row of pad buttons
+export function createPadRowButtons(start, end, pads) {
   let row = [];
 
-  //row.push(<Grid.Row columns={padAmount}>);
-
-  for (let i = start; i <= padAmount; i++) {
+  // Each pad will be tied to ID, use iterator to traverse
+  // through pad list and get corresponding color for each pad
+  for (let i = start - 1; i < end; i++) {
     row.push(
-      <Grid.Column key={i}>
+      <Grid.Column className='grid-column' key={i}>
         <Button
-          name={`pad-button-${i}`}
-          basic color={color}
-          content={intToAlpha[i]} />
+          name={`pad-button-${i + 1}`}
+          basic color={pads[i].color}
+          content={intToAlpha[i + 1]} />
       </Grid.Column>
     );
   }
-
-  //row.push(</Grid.Row>);
 
   return row;
 }
