@@ -15,19 +15,35 @@ class PadGrid extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      keyToSample: []
+    };
+
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.playAudio = this.playAudio.bind(this);
+  }
+
+  playAudio(sampleId) {
+    let audio = new Audio('Samples/' + this.props.samples[sampleId].name);
+    audio.play();
   }
 
   handleKeyDown(event) {
     let audio;
+    let keyPress = event.key;
+    let playingPad = this.props.pads.find(pad => pad.assignedKey === keyPress);
 
-    console.log("Key pressed:", event.key);
+    console.log("Key pressed:", keyPress);
 
-    // TEST: play a sound if '1' is pressed
-    if (event.key === '1') {
-      audio = new Audio('Samples/clap-808.wav');
-      audio.play();
+    // Play sample associated with the key (pad) that was just pressed
+    if (playingPad) {
+      this.playAudio(playingPad.sampleId);
     }
+  }
+
+  handleClick(event) {
+    let padClicked = this.props.pads.find(pad => pad.id === event.target.value);
+    console.log("just clicked:", padClicked);
   }
 
   // Set up event listeners for keyboard strokes according to
@@ -41,19 +57,25 @@ class PadGrid extends Component {
   }
 
   render() {
+    const sortedPads = this.props.pads ? this.props.pads.sort((a, b) => a.position - b.position) : null;
+
+    console.log("sortedPads:", sortedPads);
 
     this.initializePads();
 
     return this.props.pads && (
       <Grid onKeyDown={this.handleKeyDown} className='grid-container' columns={this.props.config && this.props.config.columnAmount}>
       {
-        this.props.pads.map(pad => (
+        sortedPads.map((pad, index) => (
           <Grid.Column className='grid-column' key={pad.id}>
+            {index + 1}
             <Button fluid size='massive'
               key={pad.id}
+              value={pad.id}
               basic color={pad.color}
-              content={intToAlpha[pad.id]}
-              tabIndex={0} />
+              content={`${intToAlpha[pad.position]}: ${pad.sampleId}\nKey: ${pad.assignedKey}`}
+              tabIndex={0}
+              onClick={this.handleClick} />
           </Grid.Column>
         ))
       }
@@ -68,7 +90,8 @@ class PadGrid extends Component {
 const mapStateToProps = (state) => {
   return {
     pads: state.pads,
-    config: state.configs[0]
+    config: state.configs[0],
+    samples: state.samples
   };
 }
 

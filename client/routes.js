@@ -6,7 +6,7 @@ import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, PadGrid} from './components'
-import { me, getPadList, getConfigurations } from './store';
+import { me, getPadList, getSampleList, getConfigurations } from './store';
 
 /**
  * COMPONENT
@@ -57,6 +57,7 @@ const mapDispatch = (dispatch) => {
       dispatch(me());
       dispatch(getPadList());
       dispatch(getConfigurations());
+      dispatch(getSampleList());
     }
   }
 }
