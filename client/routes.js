@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, PadGrid} from './components'
+import {Main, Login, Signup, UserHome, PadContainer} from './components'
 import { me, getPadList, getSampleList, getConfigurations } from './store';
 
 /**
@@ -28,11 +28,11 @@ class Routes extends Component {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={PadGrid} />
+                  <Route path="/home" component={PadContainer} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={PadGrid} />
+            <Route component={PadContainer} />
           </Switch>
         </Main>
       </Router>
