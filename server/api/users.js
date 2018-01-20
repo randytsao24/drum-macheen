@@ -1,6 +1,8 @@
-const router = require('express').Router()
-const {User} = require('../db/models')
-module.exports = router
+// server/api/users.js
+
+const router = require('express').Router();
+const {User} = require('../db/models');
+module.exports = router;
 
 router.get('/', (req, res, next) => {
   User.findAll({
@@ -10,5 +12,5 @@ router.get('/', (req, res, next) => {
     attributes: ['id', 'email']
   })
     .then(users => res.json(users))
-    .catch(next)
-})
+    .catch(next);
+});

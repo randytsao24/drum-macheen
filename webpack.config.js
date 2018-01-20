@@ -14,6 +14,13 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.wav$/,
+        loader: 'file',
+        query: {
+           name: 'public/Samples/[name].[hash:8].[ext]'
+        }
       }
     ]
   },

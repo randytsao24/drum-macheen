@@ -19,3 +19,26 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.main-div {
+  
+}
+
+.grid-container {
+  border: 2px solid red;
+  display: flex;
+  align-items: center;
+}
+
+.grid-row-container {
+  border: 2px solid green;
+  display: flex;
+  align-items: center;
+}
+
+.grid-column {
+  border: 2px solid blue;
+  display: flex;
+  align-items: center;
+  align-items: space-between;
+}

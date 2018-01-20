@@ -1,16 +1,9 @@
-/**
- * Welcome to the seed file! This seed file uses a newer language feature called...
- *
- *                  -=-= ASYNC...AWAIT -=-=
- *
- * Async-await is a joy to use! Read more about it in the MDN docs:
- *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
- *
- * Now that you've got the main idea, check it out in practice below!
- */
-const db = require('../server/db')
-const {User} = require('../server/db/models')
+// seed.js - For seeding database with some good stuff
+
+const db = require('../server/db');
+const { User, Pad, Configuration, Sample } = require('../server/db/models');
+const fs = require('fs');
+const readdir = require('fs-readdir-promise');
 
 async function seed () {
   await db.sync({force: true})
@@ -21,11 +14,42 @@ async function seed () {
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
-  ])
-  // Wowzers! We can even `await` on the right-hand side of the assignment operator
-  // and store the result that the promise resolves to in a variable! This is nice!
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
+  ]);
+
+  const pads = await Promise.all([
+    Pad.create({color: 'blue'}), Pad.create({color: 'blue'}),
+    Pad.create({color: 'blue'}), Pad.create({color: 'blue'}),
+    Pad.create({color: 'red'}), Pad.create({color: 'red'}),
+    Pad.create({color: 'red'}), Pad.create({color: 'red'}),
+    Pad.create({color: 'violet'}), Pad.create({color: 'violet'}),
+    Pad.create({color: 'violet'}), Pad.create({color: 'violet'}),
+    Pad.create({color: 'teal'}), Pad.create({color: 'teal'}),
+    Pad.create({color: 'teal'}), Pad.create({color: 'teal'})
+  ]);
+
+  const configs = await Promise.all([
+    Configuration.create({padAmount: 16, columnAmount: 4})
+  ]);
+
+
+  const samples = await readdir('./Public/samples')
+    .then(files => {
+      return Promise.all(
+        files.map(file => 
+          Sample.create({
+            name: file,
+            category: file.split('-')[0]
+          })
+        )
+      )
+    })
+    .catch(err => console.error(err));
+
+  console.log(`seeded ${users.length} users`);
+  console.log(`seeded ${pads.length} pads`);
+  console.log(`seeded ${configs.length} configurations`);
+  console.log(`seeded ${samples.length} samples`);
+  console.log(`seeded successfully`);
 }
 
 // Execute the `seed` function
