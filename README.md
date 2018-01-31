@@ -1,3 +1,5 @@
-# README for Randy's Drum Padddddd
+# Randy's Drum Padzzz
+---
+## About
 
-Fill this stuff in later, yeah???
+Personal project developed while attending Fullstack Academy of Code in NYC.
